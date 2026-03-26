@@ -1,5 +1,5 @@
 
-# FEATURE: roessler ODE
+# [NEW] FEATURE: roessler ODE
 
 in C++ implement a program ``roessler`` that reads the parameters for the Roessler ODE from the program arguments, then draws the roessler system using gnuplot.
 - use CAPD for generating trajectories
@@ -8,7 +8,7 @@ in C++ implement a program ``roessler`` that reads the parameters for the Roessl
 - use some good default parameters, so that running ``./roessler`` without any params will generate a nice picture of a standard chaotic Roessler attractor. 
 
 
-# FEATURE: Biffurcation diagram
+# [NEW] FEATURE: Biffurcation diagram
 
 in C++ implement a program ``nonrig-biff`` that draws the biffurcation diagram for the Roessler ODE, similar to that that exists in logistic map.
 - Use CAPD for generating trajectories and defining a Poincare map on a suitable section
