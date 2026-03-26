@@ -26,6 +26,9 @@ target_link_libraries(biffurcation_lib capd)
 add_executable(nonrig-biff src/nonrig_biff_main.cpp)
 target_link_libraries(nonrig-biff biffurcation_lib capd)
 
+add_executable(find_periodic_orbits src/find_periodic_orbits_main.cpp)
+target_link_libraries(find_periodic_orbits capd)
+
 # For the tests
 enable_testing()
 add_subdirectory(tests)
