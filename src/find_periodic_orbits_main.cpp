@@ -181,7 +181,9 @@ int main(int argc, char* argv[]) {
             double step = 0.01;
             solver.setStep(step);
 
-            for (int k = 0; k < params.period; ++k) {
+            // Plot for twice the period to show the closed loop clearly
+            int plot_periods = params.period * 2;
+            for (int k = 0; k < plot_periods; ++k) {
                 DMatrix dummyMonodromy(3, 3);
                 double retTime = 0.0;
                 DVector target_pt = pm(plot_pt, dummyMonodromy, retTime);
