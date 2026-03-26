@@ -1,4 +1,4 @@
-# [NEW] RESEARCH: find periodic orbits for Roessler ODE
+# [DONE] RESEARCH: find periodic orbits for Roessler ODE
 
 Create a program such that for given parametrs to the Roessler ODE, it finds periodic orbit by apllying fix point finding roblem P(x) = x for a Poincare map to some section.
 - use CAPD capabilities
