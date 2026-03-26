@@ -1,3 +1,11 @@
+# cmake
+
+build/
+output/
+*.dat
+*.gp
+*.png
+
 # Prerequisites
 *.d
 
