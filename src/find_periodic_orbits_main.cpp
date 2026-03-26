@@ -178,24 +178,25 @@ int main(int argc, char* argv[]) {
             }
 
             DVector plot_pt = P;
-            double step = 0.01;
-            solver.setStep(step);
+            double step = 0.01;     
 
             // Plot for twice the period to show the closed loop clearly
-            int plot_periods = params.period * 2;
+            int plot_periods = params.period;
+            double plot_time = 0.;
             for (int k = 0; k < plot_periods; ++k) {
                 DMatrix dummyMonodromy(3, 3);
                 double retTime = 0.0;
-                DVector target_pt = pm(plot_pt, dummyMonodromy, retTime);
+                DVector plot_pt = pm(plot_pt, dummyMonodromy, retTime);
+                std::cout << "retTime="<<retTime<< std::endl;
+                plot_time += retTime;
+            }
 
-                double t = 0;
-                while (t < retTime) {
-                    out << plot_pt[0] << " " << plot_pt[1] << " " << plot_pt[2] << "\n";
-                    plot_pt = solver(step, plot_pt);
-                    t += step;
-                }
-                // Force it exactly to the section for next iteration
-                plot_pt = target_pt;
+            double t = 0;
+            while (t < plot_time * 4) {
+                out << plot_pt[0] << " " << plot_pt[1] << " " << plot_pt[2] << " " << t << "\n";
+                step = 0.01;
+                plot_pt = solver(step, plot_pt);
+                t += step;
             }
             out.close();
 
