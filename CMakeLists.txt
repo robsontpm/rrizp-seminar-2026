@@ -20,6 +20,12 @@ target_link_libraries(roessler_lib capd)
 add_executable(roessler src/roessler_main.cpp)
 target_link_libraries(roessler roessler_lib capd)
 
+add_library(biffurcation_lib src/biffurcation.cpp)
+target_link_libraries(biffurcation_lib capd)
+
+add_executable(nonrig-biff src/nonrig_biff_main.cpp)
+target_link_libraries(nonrig-biff biffurcation_lib capd)
+
 # For the tests
 enable_testing()
 add_subdirectory(tests)

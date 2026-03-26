@@ -8,7 +8,7 @@ in C++ implement a program ``roessler`` that reads the parameters for the Roessl
 - use some good default parameters, so that running ``./roessler`` without any params will generate a nice picture of a standard chaotic Roessler attractor. The trajectory record time should be long enough to get a nice picture.
 
 
-# [NEW] FEATURE: Biffurcation diagram
+# [DONE] FEATURE: Biffurcation diagram
 
 in C++ implement a program ``nonrig-biff`` that draws the biffurcation diagram for the Roessler ODE, similar to that that exists in logistic map.
 - Use CAPD for generating trajectories and defining a Poincare map on a suitable section
