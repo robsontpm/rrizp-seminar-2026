@@ -1,5 +1,5 @@
 #define BOOST_TEST_MODULE RoesslerTest
-#include <boost/test/included/unit_test.hpp>
+#include <boost/test/unit_test.hpp>
 #include "roessler.h"
 #include <fstream>
 #include <string>

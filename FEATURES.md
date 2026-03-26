@@ -2,10 +2,10 @@
 # [DONE] FEATURE: roessler ODE
 
 in C++ implement a program ``roessler`` that reads the parameters for the Roessler ODE from the program arguments, then draws the roessler system using gnuplot.
-- use CAPD for generating trajectories
+- use CAPD for generating trajectories.
 - from command line, read the initial point, the length of the trajectory to be discarded (S), the lenght of the trajectory to be drawn (T), the value of parameters in Roessler ODE, and the name of output file (prefix). 
 - the program should create 3 files: {prefix}.dat, {prefix}.gp and {prefix}.png (that contain the data needed to plot the solution). Use splot to generate 3d image. 
-- use some good default parameters, so that running ``./roessler`` without any params will generate a nice picture of a standard chaotic Roessler attractor. 
+- use some good default parameters, so that running ``./roessler`` without any params will generate a nice picture of a standard chaotic Roessler attractor. The trajectory record time should be long enough to get a nice picture.
 
 
 # [NEW] FEATURE: Biffurcation diagram
