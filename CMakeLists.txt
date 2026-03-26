@@ -17,7 +17,7 @@ add_subdirectory(CAPD)
 add_library(roessler_lib src/roessler.cpp)
 target_link_libraries(roessler_lib capd)
 
-add_executable(roessler src/main.cpp)
+add_executable(roessler src/roessler_main.cpp)
 target_link_libraries(roessler roessler_lib capd)
 
 # For the tests

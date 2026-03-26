@@ -2,6 +2,7 @@
 - Description: this is a research project into capabilities of automated coding agents applied to problems in computational mathematics / rigorous numerical methods / computer assisted proofs in dynamics.
 - Primary Language: C++20
 - Tools: CMake, make, lcov, ctest, gnuplot
+- Libs: [CAPD](https://github.com/CAPDGroup/CAPD)
 - System requirements: libgmp-dev libmpfr-dev libboost-all-dev git cmake autoconf libtool
 
 
@@ -10,26 +11,28 @@
 - use ``apt-get`` to manage dependencies if needed. Create or update a file ``requirements.sh`` that contain all ``apt-get`` commands to install neccessary packages. 
 - use the git repository ``https://github.com/CAPDGroup/CAPD`` as a submodule in this project. Use build instructions from ``https://github.com/CAPDGroup/CAPD/blob/master/README.md`` to build CAPD with cmake. Install all dependencies needed by CAPD using apt-get.
 - install ``libgmp-dev libmpfr-dev libboost-all-dev git cmake autoconf libtool`` as they are required by CAPD.
+- Use ``CMake`` building system to configure build procedure for this project. 
+- Install any dependencies (other than ``CAPD`` library and those that can be installed with `apt-get`) in ``${HOME}/deps`` folder, when needed (e.g. the ``lcov`` tool in a different version than standard).
 
 
 ## Workflow instructions
 
-ALWAYS Follow this protocol to the letter!
+ALWAYS Follow the following list of Workflow instructions TO THE LETTER:
 
 - The names of the branches you create for all tasks should begin with jules, e.g. `jules/develop-some-feature`, `jules/research-some-task`.
-- Use ``CMake`` building system. Install any dependencies other than ``CAPD`` library in ``${HOME}/deps`` folder, when needed (e.g. the ``lcov`` tool).
-- ALWAYS work in ``./build/`` folder outside of the main directory ``./``. At all cost keep the repo clean of the build artifacts!
+- ALWAYS work in ``./build/`` folder outside of the main directory ``./``. At all cost KEEP THE REPO CLEAN of the build artifacts!
+- There might be different `*_main` files in the `./src` directory, that are supposed to be compiled separatley into binaries. If you are creating new program with main, put it into `{name}_main.cpp` file, where {name} is a suitable short identifier based on the feature or research you are doing.
 - Keep separate files for declarations (`.h`) in `./include/` and implementation (`.cpp`) in `./src/`.
 - If you are using any commands to build something for a specific task (e.g. when reserching a task, looking for a bug, etc.), prepare a ``jules-build-{my-build-task}.sh`` command in the main directory, so that I can re-run your setup in my local repository. The name ``{my-build-task}`` should be short but descriptive, e.g. ``finding-fix-points``, ``bug-in-integration``. 
 - You might use scientific materials stored in ``literature`` folder to search for concepts and algorithms that might be helpful in implementing tasks. You might also search internet for required additional sources. 
 - When implementing mathematical concepts and/or algorithms, write descriptive comments explaining what the algorithm do and what is the mathematical concept behind them. If you are using something from the literature sources or from the Internet, please add relevant citation somewhere in the comments.
-- ALWAYS follow the Development Protocol AND the Testing Protocol when implementing features as defined in ``FEATURES.md``.
-- ALWAYS follow the Research Protocol when doing a research task as defined in ``RESEARCH.md``.
+
+END of Workflow instructions.
 
 
 ## Coding Standards & Style
 
-ALWAYS Follow this protocol to the letter!
+ALWAYS Follow the following list to the letter when doing any tasks:
 
 - Datastructures names should be CamelCase, method/function names should use underscore_case. Constants should be UPPER_UNDERSCORE_CASE. 
 - All components must be designed to be testable in isolation. Dependency injection (via templates) should be used to mock dependencies.
@@ -38,10 +41,12 @@ ALWAYS Follow this protocol to the letter!
 - Avoid hardcoded constants (like epsilon) inside generic algorithms; provide them as configuration parameters or traits of the scalar type.
 - Avoid `using namespace std;` in header files.
 
+END of Coding Standards & Style.
+
 
 ## Development Protocol
 
-YOU MUST follow this protocol if you are a DEVELOPER.
+YOU MUST follow the following list if you are a DEVELOPER:
 
 - The name of the branch you create MUST begin with `jules/develop`, e.g. `jules/develop-some-feature`.
 - Read ``DEVLOG.md`` if it exists to learn about current state of the project.
@@ -50,20 +55,24 @@ YOU MUST follow this protocol if you are a DEVELOPER.
 - If all the tests passes and the code coverage is >= 80% then mark the FEATURE in ``FEATURES.md`` as ``DONE``.
 - Otherwise mark the FEATURE in ``FEATURES.md`` as ``UNFINISHED`` and update ``DEVLOG.md`` with information on any bug or difficulty you have encoutered when developing a FEATURE.
 
+END of Development Protocol.
+
 
 ## Testing Protocol
 
-YOU MUST this protocol if you are a DEVELOPER or a TESTER.
+YOU MUST follow the following list if you are a DEVELOPER or a TESTER:
 
 - EVERY new feature or bug fix MUST include a corresponding unit test in the `tests/` directory.
 - ALWAYS prepare unit tests using Boost.Test framework. Use pre-compiled version.
 - You should try to achive the code coverage >= 80%. Use ``lcov`` tool for code coverage tests.
 - Unit tests must cover edge cases and verify the mathematical correctness of operations (e.g., derivative of a polynomial).
 
+END of Testing Protocol.
+
 
 ## Research Protocol
 
-YOU MUST Follow this protocol if you are a RESEARCHER.
+YOU MUST Follow the following list if you are a RESEARCHER:
 
 - The name of the branch you create MUST begin with `jules/research`, e.g. `jules/research-some-feature`.
 - Read ``MATHEMATICS.md`` and ``RESEARCH_LOG.md`` if they exists to learn about current state of the research.
@@ -77,3 +86,5 @@ YOU MUST Follow this protocol if you are a RESEARCHER.
 - The TASK is FAILING if it does not meet the definition of MATHEMATICALLY PLAUSIBLE and is not a SUCCESS. 
 - If the TASK keeps FAILING, YOU MUST DO AT LEAST 10 iterations before you give up. If you give up, commit all the changes and create PR for me to review the current state of the TASK.
 - If the TASK meets the criterion of MATHEMATICALLY PLAUSIBLE and is a SUCCESS, mark the TASK as DONE in `jules/RESEARCH.md`, commit changes and create PR for me.
+
+END of Research Protocol.
