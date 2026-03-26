@@ -1,5 +1,5 @@
 
-# [NEW] FEATURE: roessler ODE
+# [DONE] FEATURE: roessler ODE
 
 in C++ implement a program ``roessler`` that reads the parameters for the Roessler ODE from the program arguments, then draws the roessler system using gnuplot.
 - use CAPD for generating trajectories
