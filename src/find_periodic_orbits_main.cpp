@@ -19,6 +19,7 @@ struct OrbitParams {
     double z0 = 0.0;
     int iter = 100;
     int period = 1;
+    std::string prefix = "";
 };
 
 OrbitParams parse_arguments(int argc, char* argv[]) {
@@ -32,13 +33,14 @@ OrbitParams parse_arguments(int argc, char* argv[]) {
         {"z0", required_argument, 0, 'z'},
         {"iter", required_argument, 0, 'i'},
         {"period", required_argument, 0, 'p'},
+        {"output", required_argument, 0, 'o'},
         {0, 0, 0, 0}
     };
 
     int option_index = 0;
     int c_opt;
 
-    while ((c_opt = getopt_long(argc, argv, "a:b:c:x:y:z:i:p:", long_options, &option_index)) != -1) {
+    while ((c_opt = getopt_long(argc, argv, "a:b:c:x:y:z:i:p:o:", long_options, &option_index)) != -1) {
         switch (c_opt) {
             case 'a': params.a = std::stod(optarg); break;
             case 'b': params.b = std::stod(optarg); break;
@@ -48,10 +50,20 @@ OrbitParams parse_arguments(int argc, char* argv[]) {
             case 'z': params.z0 = std::stod(optarg); break;
             case 'i': params.iter = std::stoi(optarg); break;
             case 'p': params.period = std::stoi(optarg); break;
+            case 'o': params.prefix = optarg; break;
             default:
                 throw std::runtime_error("Invalid argument.");
         }
     }
+
+    if (!params.prefix.empty()) {
+        for (char c : params.prefix) {
+            if (!std::isalnum(c) && c != '_' && c != '-') {
+                throw std::runtime_error("Invalid prefix. Only alphanumeric characters, dashes, and underscores are allowed.");
+            }
+        }
+    }
+
     return params;
 }
 
@@ -157,6 +169,52 @@ int main(int argc, char* argv[]) {
         }
         cout << "Orbit is " << (stable ? "STABLE" : "UNSTABLE") << ".\n";
 
+        // Generate Plot if prefix is provided
+        if (!params.prefix.empty()) {
+            cout << "\n--- Generating Plot ---\n";
+            std::ofstream out(params.prefix + ".dat");
+            if (!out) {
+                throw std::runtime_error("Failed to open output data file.");
+            }
+
+            DVector plot_pt = P;
+            double step = 0.01;
+            solver.setStep(step);
+
+            for (int k = 0; k < params.period; ++k) {
+                DMatrix dummyMonodromy(3, 3);
+                double retTime = 0.0;
+                DVector target_pt = pm(plot_pt, dummyMonodromy, retTime);
+
+                double t = 0;
+                while (t < retTime) {
+                    out << plot_pt[0] << " " << plot_pt[1] << " " << plot_pt[2] << "\n";
+                    plot_pt = solver(step, plot_pt);
+                    t += step;
+                }
+                // Force it exactly to the section for next iteration
+                plot_pt = target_pt;
+            }
+            out.close();
+
+            std::ofstream gp(params.prefix + ".gp");
+            if (!gp) {
+                throw std::runtime_error("Failed to open output script file.");
+            }
+
+            gp << "set terminal png size 800,600\n";
+            gp << "set output '" << params.prefix << ".png'\n";
+            gp << "splot '" << params.prefix << ".dat' with lines title 'Periodic Orbit'\n";
+            gp.close();
+
+            std::string command = "gnuplot " + params.prefix + ".gp";
+            int ret = std::system(command.c_str());
+            if (ret != 0) {
+                std::cerr << "Warning: gnuplot failed with code " << ret << "\n";
+            } else {
+                cout << "Plot generated: " << params.prefix << ".png\n";
+            }
+        }
 
     } catch (const exception& e) {
         cerr << "Exception caught: " << e.what() << "\n";
